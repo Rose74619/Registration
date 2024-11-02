@@ -53,6 +53,12 @@ public class RegistrationController {
         return new ResponseEntity<>(registrationDtos, HttpStatus.OK);
 
     }
+    //http://localhost:8080/api/v1/registration/ById?id=
+    @GetMapping("/ById")
+    public ResponseEntity<RegistrationDto> getRegistrationById(@RequestParam long id){
+        RegistrationDto registrationDto3=registrationService.getRegistrationById(id);
+        return new ResponseEntity<>(registrationDto3,HttpStatus.OK);
+    }
 
 
 }

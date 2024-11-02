@@ -1,6 +1,7 @@
 package com.apiexamples.service;
 
 import com.apiexamples.entity.Registration;
+import com.apiexamples.exception.ResourceNotFound;
 import com.apiexamples.payload.RegistrationDto;
 import com.apiexamples.repository.RegistrationRepository;
 import org.springframework.data.domain.Page;
@@ -60,6 +61,14 @@ public class RegistrationServiceImpl implements RegistrationService{
         System.out.println(all.isLast());
         System.out.println(pageable.getPageSize());
         return dtos;
+    }
+
+    @Override
+    public RegistrationDto getRegistrationById(long id) {
+        Registration registration = registrationRepository.findById(id).orElseThrow(()-> new ResourceNotFound("registration not found for id " + id));
+        RegistrationDto dto=mapToDto(registration);
+        dto.setMessage("Registration found successfully");
+        return dto;
     }
 
     Registration mapToEntity(RegistrationDto registrationDto){
